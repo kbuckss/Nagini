@@ -19,6 +19,5 @@ public class Nagini {
     public static void main(String[] args) {
         ApplicationStarter.run("Nagini Run", new MalfoyManor());
     }
-
     
 }
