@@ -1,5 +1,6 @@
 package nagini;
 
+import audio.AudioPlayer;
 import environment.Environment;
 import grid.Grid;
 import java.awt.Color;
@@ -41,16 +42,16 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         barriers.add(new Barrier(10, 20, Color.GREEN, this, false));
         
         //left side
-        barriers.add(new Barrier(0, 0, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 1, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 2, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 3, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 4, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 5, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 6, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 7, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 8, Color.BLACK, this, false));
-        barriers.add(new Barrier(0, 9, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  0, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  1, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  2, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  3, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  4, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  5, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  6, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  7, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  8, Color.BLACK, this, false));
+        barriers.add(new Barrier(0,  9, Color.BLACK, this, false));
         barriers.add(new Barrier(0, 10, Color.BLACK, this, false));
         barriers.add(new Barrier(0, 11, Color.BLACK, this, false));
         barriers.add(new Barrier(0, 12, Color.BLACK, this, false));
@@ -67,16 +68,16 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         barriers.add(new Barrier(0, 23, Color.BLACK, this, false));
         
         //right side
-        barriers.add(new Barrier(41, 0, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 1, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 2, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 3, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 4, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 5, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 6, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 7, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 8, Color.BLACK, this, false));
-        barriers.add(new Barrier(41, 9, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  0, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  1, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  2, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  3, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  4, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  5, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  6, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  7, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  8, Color.BLACK, this, false));
+        barriers.add(new Barrier(41,  9, Color.BLACK, this, false));
         barriers.add(new Barrier(41, 10, Color.BLACK, this, false));
         barriers.add(new Barrier(41, 11, Color.BLACK, this, false));
         barriers.add(new Barrier(41, 12, Color.BLACK, this, false));
@@ -93,15 +94,15 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         barriers.add(new Barrier(41, 23, Color.BLACK, this, false));      
         
         //top
-        barriers.add(new Barrier(1, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(2, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(3, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(4, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(5, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(6, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(7, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(8, 0, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(9, 0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(1,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(2,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(3,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(4,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(5,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(6,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(7,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(8,  0, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(9,  0, Color.BLACK, this, false)); 
         barriers.add(new Barrier(10, 0, Color.BLACK, this, false)); 
         barriers.add(new Barrier(11, 0, Color.BLACK, this, false)); 
         barriers.add(new Barrier(12, 0, Color.BLACK, this, false)); 
@@ -167,15 +168,15 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         barriers.add(new Barrier(12, 23, Color.BLACK, this, false)); 
         barriers.add(new Barrier(11, 23, Color.BLACK, this, false)); 
         barriers.add(new Barrier(10, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(9, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(8, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(7, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(6, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(5, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(4, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(3, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(2, 23, Color.BLACK, this, false)); 
-        barriers.add(new Barrier(1, 23, Color.BLACK, this, false));
+        barriers.add(new Barrier(9,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(8,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(7,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(6,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(5,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(4,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(3,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(2,  23, Color.BLACK, this, false)); 
+        barriers.add(new Barrier(1,  23, Color.BLACK, this, false));
                
     }
 
@@ -242,6 +243,8 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             System.out.println("RIGHT");
             snake.setDirection(Direction.RIGHT);
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            AudioPlayer.play("/nagini/LaserCannonNoise.wav");
         }
 
         //you can use the numbers associated with the keys to command things

@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nagini;
 
+import audio.AudioPlayer;
 import grid.Grid;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -45,7 +41,7 @@ public class Snake {
     //how big to draw the snake, lets you know where the top left corner of the cell you're in is
     private Color bodyColor = Color.MAGENTA;
     private Color deadColor = Color.RED;
-    private int health = 100;
+    private int health = 1000;
 
     public void draw(Graphics graphics) {
         graphics.setColor(bodyColor);
@@ -89,6 +85,12 @@ public class Snake {
 
             getBody().add(0, newHead);
             getBody().remove(body.size() - 1);
+        }
+    }
+    
+    public void sounds() {
+        if (!isAlive()) {
+            AudioPlayer.play("/nagini/LaserCannonNoise.wav");
         }
     }
 
