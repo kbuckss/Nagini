@@ -210,8 +210,9 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             }
             
             checkIntersections();
+            
         } 
-   
+               
     }
     
     public void checkIntersections() {
@@ -221,9 +222,12 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
                 //put own logic here
                 //right now when the snake head is in a barrier, health goes down
                 snake.addHealth(-1000);
-                
+                AudioPlayer.play("/nagini/LaserCannonNoise.wav");
             }
         }
+        
+        
+        
     }
     
     @Override

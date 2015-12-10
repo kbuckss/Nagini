@@ -45,11 +45,11 @@ public class Snake {
 
     public void draw(Graphics graphics) {
         graphics.setColor(bodyColor);
-        
+
         if (isAlive()) {
             graphics.setColor(bodyColor);
         }
-        
+
         if (!isAlive()) {
             graphics.setColor(deadColor);
         }
@@ -83,16 +83,14 @@ public class Snake {
                 newHead.y--;
             }
 
+            
+            
             getBody().add(0, newHead);
             getBody().remove(body.size() - 1);
         }
     }
-    
-    public void sounds() {
-        if (!isAlive()) {
-            AudioPlayer.play("/nagini/LaserCannonNoise.wav");
-        }
-    }
+
+
 
     public Point getHead() {
         return getBody().get(0);
