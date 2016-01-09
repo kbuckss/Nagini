@@ -1,14 +1,18 @@
 package nagini;
 
+import java.util.Timer;
+import java.lang.*;
 import audio.AudioPlayer;
 import grid.Grid;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionListener;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import static javafx.scene.paint.Color.color;
 import static javafx.scene.paint.Color.color;
+import static javax.management.Query.times;
 
 /**
  *
@@ -30,8 +34,10 @@ public class Snake {
         body.add(new Point(10, 11));
         body.add(new Point(10, 12));
         body.add(new Point(10, 13));
+        
+        }
+    
 
-    }
 
     private Direction direction = Direction.LEFT;
     //direction default is left
@@ -83,14 +89,11 @@ public class Snake {
                 newHead.y--;
             }
 
-            
-            
             getBody().add(0, newHead);
             getBody().remove(body.size() - 1);
+
         }
     }
-
-
 
     public Point getHead() {
         return getBody().get(0);
