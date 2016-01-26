@@ -14,5 +14,13 @@ public class Nagini {
     public static void main(String[] args) throws ClassCastException {
         ApplicationStarter.run("Nagini Run", new MalfoyManor());
     }
-    
+
+    //things I want to add to my game:
+    // - a health counter in the corner - that's text and a live number
+    // - some kind of scoring system
+    // - snake adds length (YAY FINALLY) and speeds up with time (can't figure that out)
+    // - a pause game option, complete with screen allowing you to continue or restart
+    // - portals?? that would be the coolest
+    // - powerup/poison items randomly generate every so often, then disappear after you run into them
+    // - snake dies when it hits itself
 }

@@ -9,15 +9,15 @@ import java.awt.Point;
  * @author Katherine
  */
 public class Item {
-    
+
     public void draw(Graphics graphics) {
-        graphics.drawImage(image, 
-                cellData.getSystemCoordX(x, y), 
-                cellData.getSystemCoordY(x, y), 
-                cellData.getCellWidth(), 
+        graphics.drawImage(image,
+                cellData.getSystemCoordX(x, y),
+                cellData.getSystemCoordY(x, y),
+                cellData.getCellWidth(),
                 cellData.getCellHeight(), null);
     }
-    
+
     public Item(int x, int y, String type, Image image, CellDataProviderIntf cellData) {
         this.x = x;
         this.y = y;
@@ -27,68 +27,67 @@ public class Item {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Properties">
-   
     private int x, y;
     private String type;
-    private Image image; 
+    private Image image;
     private CellDataProviderIntf cellData;
-    
+
     /**
      * @return the x
      */
     public Point getLocation() {
         return new Point(x, y);
     }
-    
+
     /**
      * @return the x
      */
     public int getX() {
         return x;
     }
-    
+
     /**
      * @param x the x to set
      */
     public void setX(int x) {
         this.x = x;
     }
-    
+
     /**
      * @return the y
      */
     public int getY() {
         return y;
     }
-    
+
     /**
      * @param y the y to set
      */
     public void setY(int y) {
         this.y = y;
     }
-    
+
     /**
      * @return the type
      */
     public String getType() {
         return type;
     }
-    
+
     /**
      * @param type the type to set
      */
     public void setType(String type) {
         this.type = type;
     }
-    
+
     /**
      * @return the image
      */
     public Image getImage() {
         return image;
     }
-    
+
     /**
      * @param image the image to set
      */
@@ -96,6 +95,5 @@ public class Item {
         this.image = image;
     }
 //</editor-fold>
-    
-    
+
 }

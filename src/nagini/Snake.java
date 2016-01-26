@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import static javafx.scene.paint.Color.color;
 import static javafx.scene.paint.Color.color;
 import static javax.management.Query.times;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,10 +35,8 @@ public class Snake {
         body.add(new Point(10, 11));
         body.add(new Point(10, 12));
         body.add(new Point(10, 13));
-        
-        }
-    
 
+    }
 
     private Direction direction = Direction.LEFT;
     //direction default is left
@@ -48,6 +47,7 @@ public class Snake {
     private Color bodyColor = Color.MAGENTA;
     private Color deadColor = Color.RED;
     private int health = 1000;
+    private int growthCounter;
 
     public void draw(Graphics graphics) {
         graphics.setColor(bodyColor);
@@ -69,6 +69,18 @@ public class Snake {
         }
     }
 
+    public void death() throws InterruptedException {
+        if (!isAlive()) {
+            AudioPlayer.play("/nagini/LaserCannonNoise.wav");
+            JOptionPane.showMessageDialog(null, "HAHA YOU'RE DEAD");
+            Thread.sleep(2000);
+            //will make the thing stop for 2000 milliseconds or 2 secs
+            System.exit(0);
+            //^that system exit thing ends the program immediately
+
+        }
+    }
+
     public void move() {
 
         if (isAlive()) {
@@ -79,18 +91,31 @@ public class Snake {
             //make a copy of the current head location
             Point newHead = new Point(getHead());
 
-            if (direction == Direction.LEFT) {
-                newHead.x--;
-            } else if (direction == Direction.RIGHT) {
+            if (direction == Direction.RIGHT) {
                 newHead.x++;
+            } else if (direction == Direction.LEFT) {
+                newHead.x--;
             } else if (direction == Direction.DOWN) {
                 newHead.y++;
             } else if (direction == Direction.UP) {
                 newHead.y--;
             }
 
+            //add new head
             getBody().add(0, newHead);
-            getBody().remove(body.size() - 1);
+
+            //delete tail
+            //if the growthCounter is greater than 0
+            //  - do NOT remove the tail
+            //  - subtract one from the growthCounter
+            //else (the growthCOunter is less than or equal to zero
+            //  - delete the tail
+            if (growthCounter > 0) {
+                growthCounter--;
+                // -- means subtract 1
+            } else {
+                getBody().remove(body.size() - 1);
+            }
 
         }
     }
@@ -135,6 +160,27 @@ public class Snake {
 
     public boolean isAlive() {
         return (health > 0);
+    }
+
+    /**
+     * @return the growthCounter
+     */
+    public int getGrowthCounter() {
+        return growthCounter;
+    }
+
+    /**
+     * @param growthCounter the growthCounter to set
+     */
+    public void setGrowthCounter(int growthCounter) {
+        this.growthCounter = growthCounter;
+    }
+
+    /**
+     * @param growthCounter the growth to add
+     */
+    public void addGrowthCounter(int growth) {
+        this.growthCounter += growth;
     }
 
 }
