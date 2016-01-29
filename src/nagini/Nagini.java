@@ -22,5 +22,5 @@ public class Nagini {
     // - a pause game option, complete with screen allowing you to continue or restart
     // - portals?? that would be the coolest
     // - powerup/poison items randomly generate every so often, then disappear after you run into them
-    // - snake dies when it hits itself
+    // - snake generates in a different place/direction every time
 }

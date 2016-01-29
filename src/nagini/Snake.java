@@ -28,9 +28,8 @@ public class Snake {
 
         //create the snake body
         body = new ArrayList<>();
-//        body.add(new Point(5, 5));
-//        body.add(new Point(5, 4));
-//        body.add(new Point(5, 3));
+
+        //so I wanna make these points randomly generated on the grid
         body.add(new Point(10, 10));
         body.add(new Point(10, 11));
         body.add(new Point(10, 12));
@@ -38,8 +37,8 @@ public class Snake {
 
     }
 
-    private Direction direction = Direction.LEFT;
-    //direction default is left
+    private Direction direction = Direction.RIGHT;
+    //direction default is right
     private ArrayList<Point> body;
     //contains an x and y value inside the point, this is a list of x and y
     private Grid grid;
@@ -119,6 +118,14 @@ public class Snake {
 
         }
     }
+    
+    public ArrayList<Point> getTail() {
+        ArrayList<Point> tail = new ArrayList<Point>();
+        for (int i = 1; i < body.size(); i++) {
+            tail.add(body.get(i));
+        }
+        return tail;
+    }
 
     public Point getHead() {
         return getBody().get(0);
@@ -169,16 +176,10 @@ public class Snake {
         return growthCounter;
     }
 
-    /**
-     * @param growthCounter the growthCounter to set
-     */
     public void setGrowthCounter(int growthCounter) {
         this.growthCounter = growthCounter;
     }
 
-    /**
-     * @param growthCounter the growth to add
-     */
     public void addGrowthCounter(int growth) {
         this.growthCounter += growth;
     }
