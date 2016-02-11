@@ -3,6 +3,7 @@ package nagini;
 import java.util.Timer;
 import java.lang.*;
 import audio.AudioPlayer;
+import static environment.Utility.random;
 import grid.Grid;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -30,15 +31,18 @@ public class Snake {
         body = new ArrayList<>();
 
         //so I wanna make these points randomly generated on the grid
-        body.add(new Point(10, 10));
-        body.add(new Point(10, 11));
-        body.add(new Point(10, 12));
-        body.add(new Point(10, 13));
-
+//        body.add(new Point(10, 10));
+//        body.add(new Point(10, 11));
+//        body.add(new Point(10, 12));
+//        body.add(new Point(10, 13));
+        body.add(new Point(2 + random(39), 2 + random(21)));
+        body.add(new Point(2 + random(39), 2 + random(21)));
+        body.add(new Point(2 + random(39), 2 + random(21)));
+        
     }
 
-    private Direction direction = Direction.RIGHT;
-    //direction default is right
+    private Direction direction = Direction.LEFT;
+    //direction default is left
     private ArrayList<Point> body;
     //contains an x and y value inside the point, this is a list of x and y
     private Grid grid;

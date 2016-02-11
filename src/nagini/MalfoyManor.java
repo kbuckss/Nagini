@@ -2,6 +2,7 @@ package nagini;
 
 import audio.AudioPlayer;
 import environment.Environment;
+import static environment.Utility.random;
 import grid.Grid;
 import images.ResourceTools;
 import java.awt.Color;
@@ -61,13 +62,7 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
 
         //internal barriers
         barriers = new ArrayList<>();
-        barriers.add(new Barrier(10, 15, Color.GREEN, this, false));
-        barriers.add(new Barrier(10, 16, Color.GREEN, this, false));
-        barriers.add(new Barrier(10, 17, Color.GREEN, this, false));
-        barriers.add(new Barrier(10, 18, Color.GREEN, this, false));
-        barriers.add(new Barrier(10, 19, Color.GREEN, this, false));
-        barriers.add(new Barrier(10, 20, Color.GREEN, this, false));
-
+        
         //left side
         barriers.add(new Barrier(0, 0, Color.BLACK, this, false));
         barriers.add(new Barrier(0, 1, Color.BLACK, this, false));
@@ -207,9 +202,9 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
 
         //putting items in places
         items = new ArrayList<>();
-        items.add(new Item(10, 5, "POWER_UP", ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
-        items.add(new Item(12, 13, "POISON", ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
-        items.add(new Item(20, 17, "PORTAL", ResourceTools.loadImageFromResource("nagini/portal.jpg"), this));
+        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POWER_UP", ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
+        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POISON",   ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "PORTAL",   ResourceTools.loadImageFromResource("nagini/portal.jpg"), this));
     }
 
     @Override
@@ -222,6 +217,9 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
     int moveDelayLimit = 5;
     //the move delay limit is basically how slow it's gonna go
     //smaller = faster
+    
+    int growthDelay = 0;
+    int growthDelayLimit = 20;
 
     @Override
     public void timerTaskHandler() {
@@ -237,7 +235,14 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
                 //else keep counting
                 moveDelay++;
             }
-
+            
+            if (growthDelay >= growthDelayLimit) {
+                growthDelay = 0;
+//                body.add(new Point(2 + random(39), 2 + random(21)));
+            } else {
+                growthDelay++;
+            }
+            
             //make a new delay called growth delay
             // don't tell the thing to move when the variable happens tell it to move')
             try {
@@ -246,7 +251,6 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
                 Logger.getLogger(MalfoyManor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 
     public void checkIntersections() throws InterruptedException {
