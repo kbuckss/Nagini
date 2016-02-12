@@ -205,6 +205,9 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POWER_UP", ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
         items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POISON",   ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
         items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "PORTAL",   ResourceTools.loadImageFromResource("nagini/portal.jpg"), this));
+        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POWER_UP", ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
+        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POISON",   ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "PORTAL",   ResourceTools.loadImageFromResource("nagini/portal.jpg"), this));
     }
 
     @Override
@@ -219,7 +222,7 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
     //smaller = faster
     
     int growthDelay = 0;
-    int growthDelayLimit = 20;
+    int growthDelayLimit = 200;
 
     @Override
     public void timerTaskHandler() {
@@ -238,7 +241,7 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             
             if (growthDelay >= growthDelayLimit) {
                 growthDelay = 0;
-//                body.add(new Point(2 + random(39), 2 + random(21)));
+                snake.body.add(new Point(2 + random(39), 2 + random(21)));
             } else {
                 growthDelay++;
             }

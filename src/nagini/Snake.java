@@ -43,7 +43,7 @@ public class Snake {
 
     private Direction direction = Direction.LEFT;
     //direction default is left
-    private ArrayList<Point> body;
+    ArrayList<Point> body;
     //contains an x and y value inside the point, this is a list of x and y
     private Grid grid;
     //how big to draw the snake, lets you know where the top left corner of the cell you're in is
