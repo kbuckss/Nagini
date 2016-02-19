@@ -31,14 +31,15 @@ public class Snake {
         body = new ArrayList<>();
 
         //so I wanna make these points randomly generated on the grid
-//        body.add(new Point(10, 10));
-//        body.add(new Point(10, 11));
-//        body.add(new Point(10, 12));
-//        body.add(new Point(10, 13));
-        body.add(new Point(2 + random(39), 2 + random(21)));
-        body.add(new Point(2 + random(39), 2 + random(21)));
-        body.add(new Point(2 + random(39), 2 + random(21)));
-        
+        body.add(new Point(randomInt(10, grid.getColumns() - 10), randomInt(5, grid.getRows() - 5)));
+        body.add(new Point(randomInt(10, grid.getColumns() - 10), randomInt(5, grid.getRows() - 5)));
+        body.add(new Point(randomInt(10, grid.getColumns() - 10), randomInt(5, grid.getRows() - 5)));
+        growthCounter = 3;
+        health = 5000;
+    }
+
+    private int randomInt(int min, int max) {
+        return (int) (min + (Math.random() * (max - min)));
     }
 
     private Direction direction = Direction.LEFT;
@@ -122,7 +123,7 @@ public class Snake {
 
         }
     }
-    
+
     public ArrayList<Point> getTail() {
         ArrayList<Point> tail = new ArrayList<Point>();
         for (int i = 1; i < body.size(); i++) {

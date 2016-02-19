@@ -1,11 +1,14 @@
 package nagini;
 
 import audio.AudioPlayer;
+import components.HealthBar;
+import components.HealthProviderIntf;
 import environment.Environment;
 import static environment.Utility.random;
 import grid.Grid;
 import images.ResourceTools;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -19,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Katherine
  */
-class MalfoyManor extends Environment implements CellDataProviderIntf {
+class MalfoyManor extends Environment implements CellDataProviderIntf, HealthProviderIntf {
 
     private Grid grid;
     private Snake snake;
@@ -28,16 +31,21 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
     private Object graphics;
     private Color bodyColor = Color.MAGENTA;
     private Color deadColor = Color.RED;
+    private GameState state;
+    private HealthBar bar;
 
     public MalfoyManor() {
         //this is my constructor, method that creates the class, named the same as the class
         this.setBackground(Color.white);
 
         //this is where I'm telling the grid what I want it to do
-        grid = new Grid(42, 24, 20, 20, new Point(20, 50), Color.black);
+        grid = new Grid(42, 24, 20, 20, new Point(20, 50), Color.gray);
         snake = new Snake(Direction.LEFT, grid);
 
+        bar = new HealthBar(new Point(10, 10), new Dimension(100, 25), this);
+
         //internal barriers
+//<editor-fold defaultstate="collapsed" desc="Barriers">
         barriers = new ArrayList<>();
         barriers.add(new Barrier(10, 15, Color.GREEN, this, false));
         barriers.add(new Barrier(10, 16, Color.GREEN, this, false));
@@ -62,7 +70,7 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
 
         //internal barriers
         barriers = new ArrayList<>();
-        
+
         //left side
         barriers.add(new Barrier(0, 0, Color.BLACK, this, false));
         barriers.add(new Barrier(0, 1, Color.BLACK, this, false));
@@ -199,15 +207,43 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
         barriers.add(new Barrier(3, 23, Color.BLACK, this, false));
         barriers.add(new Barrier(2, 23, Color.BLACK, this, false));
         barriers.add(new Barrier(1, 23, Color.BLACK, this, false));
+//</editor-fold>
 
         //putting items in places
         items = new ArrayList<>();
-        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POWER_UP", ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
-        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POISON",   ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
-        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "PORTAL",   ResourceTools.loadImageFromResource("nagini/portal.jpg"), this));
-        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POWER_UP", ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
-        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "POISON",   ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
-        items.add(new Item(1 + random(41) - 1, 1 + random(23) - 1, "PORTAL",   ResourceTools.loadImageFromResource("nagini/portal.jpg"), this));
+
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POWER_UP, ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POWER_UP, ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POWER_UP, ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POWER_UP, ResourceTools.loadImageFromResource("nagini/sparkle.jpg"), this));
+
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+        items.add(new Item(randomGridLocation(), Item.ITEM_TYPE_POISON, ResourceTools.loadImageFromResource("nagini/poisonbottle.jpg"), this));
+
+        state = GameState.PAUSED;
+
+    }
+
+    public int randomInt(int min, int max) {
+        return (int) (min + Math.random() * (max - min + 1));
+    }
+
+    public Point randomGridLocation() {
+        return new Point(randomInt(1, grid.getColumns() - 2), randomInt(1, grid.getRows() - 2));
     }
 
     @Override
@@ -220,7 +256,7 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
     int moveDelayLimit = 5;
     //the move delay limit is basically how slow it's gonna go
     //smaller = faster
-    
+
     int growthDelay = 0;
     int growthDelayLimit = 200;
 
@@ -228,26 +264,24 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
     public void timerTaskHandler() {
         //DON'T PUT COMPUTATIONALLY HEAVY STUFF HERE because it fires really quickly and will slow the program
         //this thing fires 20 times a second
+        if (state == GameState.RUNNING) {
+            if (snake != null) {
+                //if counted to the limit, then move snake
+                if (moveDelay >= moveDelayLimit) {
+                    moveDelay = 0;
+                    snake.move();
+                } else {
+                    //else keep counting
+                    moveDelay++;
+                }
 
-        if (snake != null) {
-            //if counted to the limit, then move snake
-            if (moveDelay >= moveDelayLimit) {
-                moveDelay = 0;
-                snake.move();
-            } else {
-                //else keep counting
-                moveDelay++;
+                if (growthDelay >= growthDelayLimit) {
+                    growthDelay = 0;
+                    snake.body.add(new Point(2 + random(39), 2 + random(21)));
+                } else {
+                    growthDelay++;
+                }
             }
-            
-            if (growthDelay >= growthDelayLimit) {
-                growthDelay = 0;
-                snake.body.add(new Point(2 + random(39), 2 + random(21)));
-            } else {
-                growthDelay++;
-            }
-            
-            //make a new delay called growth delay
-            // don't tell the thing to move when the variable happens tell it to move')
             try {
                 checkIntersections();
             } catch (InterruptedException ex) {
@@ -262,9 +296,9 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             if (barrier.getLocation().equals(snake.getHead())) {
                 //put own logic here
                 //right now when the snake head is in a barrier, health goes down
-                snake.addHealth(-999999999);
+                snake.addHealth(-10000);
                 AudioPlayer.play("/nagini/LaserCannonNoise.wav");
-                JOptionPane.showMessageDialog(null, "HAHA YOU'RE DEAD, 'CUZ YOU HIT YOUR HEAD");
+                JOptionPane.showMessageDialog(null, "DEAD - you can't think outside the box");
                 Thread.sleep(2000);
                 //will make the thing stop for 2000 milliseconds or 2 secs
                 System.exit(0);
@@ -272,10 +306,25 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             }
         }
 
+        if (items != null) {
+            for (Item item : items) {
+                if (item.getLocation().equals(snake.getHead())) {
+                    if (item.getType().equals(Item.ITEM_TYPE_POWER_UP)) {
+                        // add health
+                        snake.addHealth(100);
+                    } else if (item.getType().equals(Item.ITEM_TYPE_POISON)) {
+                        // subtract health
+                        snake.addHealth(-100);
+                    }
+                    item.setLocation(randomGridLocation());
+                }
+            }
+        }
+
         if (snake.getTail().contains(snake.getHead())) {
-            snake.addHealth(-100000000);
+            snake.addHealth(-10000);
             AudioPlayer.play("/nagini/LaserCannonNoise.wav");
-            JOptionPane.showMessageDialog(null, "HAHA YOU'RE DEAD, 'CUZ YOU TAGGED YOURSELF");
+            JOptionPane.showMessageDialog(null, "DEAD - why are you hitting yourself?");
             Thread.sleep(2000);
             //will make the thing stop for 2000 milliseconds or 2 secs
             System.exit(0);
@@ -286,23 +335,18 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             if (item.getLocation().equals(snake.getHead())) {
                 //if the item is s POISON, the subtract health
                 if (item.getType().equals("POISON")) {
-                    snake.addHealth(-200);
+                    snake.addHealth(-500);
                     AudioPlayer.play("/nagini/LaserCannonNoise.wav");
-                    JOptionPane.showMessageDialog(null, "HAHA YOU'RE DEAD");
+                    JOptionPane.showMessageDialog(null, "DEAD - poison");
                     Thread.sleep(2000);
                     //will make the thing stop for 2000 milliseconds or 2 secs
                     System.exit(0);
                     //^that system exit thing ends the program immediately
                 }
                 if (item.getType().equals("POWER_UP")) {
-                    snake.addHealth(300);
+                    snake.addHealth(1000);
                     System.out.println("POWER_UP");
                 }
-                if (item.getType().equals("PORTAL")) {
-                    //make the snake jump to somewhere else
-                    System.out.println("PORTAL");
-                }
-
             }
         }
     }
@@ -326,10 +370,19 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             snake.setDirection(Direction.RIGHT);
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             AudioPlayer.play("/nagini/LaserCannonNoise.wav");
-        } else if (e.getKeyCode() == KeyEvent.VK_G) {
-            snake.addGrowthCounter(3);
+            System.out.println("SPACE");
+//            JOptionPane.showMessageDialog(null, "PAUSED");
+            if (state == GameState.PAUSED) {
+                state = GameState.RUNNING;
+            } else if (state == GameState.RUNNING) {
+                state = GameState.PAUSED;
+            }
         }
 
+        //this thing made it grow when you press G, but we don't need that anymore
+//        else if (e.getKeyCode() == KeyEvent.VK_G) {
+//            snake.addGrowthCounter(3);
+//        }
         //you can use the numbers associated with the keys to command things
         //VK_UP means virtual key up arrow
         //that if statement means that if it's true, it will run whatever's in the brackets
@@ -360,15 +413,16 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
             for (int i = 0; i < barriers.size(); i++) {
                 barriers.get(i).draw(graphics);
             }
-//            for (int i = 0, i < myBarriers.size(); i++) {
-//            myBarriers.get(i).draw(graphics);
-//            }
         }
 
         if (items != null) {
             for (int i = 0; i < items.size(); i++) {
                 items.get(i).draw(graphics);
             }
+        }
+
+        if (bar != null) {
+            bar.draw(graphics);
         }
 
     }
@@ -387,6 +441,31 @@ class MalfoyManor extends Environment implements CellDataProviderIntf {
 
     public int getSystemCoordY(int x, int y) {
         return grid.getCellSystemCoordinate(x, y).y;
+    }
+
+    @Override
+    public int getMinimumHealth() {
+        return 0;
+    }
+
+    @Override
+    public int getMaximumHealth() {
+        return 10000;
+    }
+
+    @Override
+    public int getValue() {
+        return snake.getHealth();
+    }
+
+    @Override
+    public double getFractionalHealth() {
+        return (1.0 * snake.getHealth() / getMaximumHealth());
+    }
+
+    @Override
+    public double getPercentHealth() {
+        return (100.0 * snake.getHealth() / getMaximumHealth());
     }
 
 }

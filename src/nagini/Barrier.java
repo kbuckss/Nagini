@@ -8,18 +8,17 @@ import java.awt.Point;
  *
  * @author Katherine
  */
-
 public class Barrier {
 
     public void draw(Graphics graphics) {
         graphics.setColor(color);
         graphics.fill3DRect(cellData.getSystemCoordX(x, y),
-                            cellData.getSystemCoordY(x, y),
-                            cellData.getCellWidth(),
-                            cellData.getCellHeight(),
-                            true);
+                cellData.getSystemCoordY(x, y),
+                cellData.getCellWidth(),
+                cellData.getCellHeight(),
+                true);
     }
-    
+
     public Barrier(int x, int y, Color color, CellDataProviderIntf cellData, boolean breakable) {
         this.x = x;
         this.y = y;
@@ -27,13 +26,13 @@ public class Barrier {
         this.color = color;
         this.breakable = false;
     }
-    
+
     private int x;
     private int y;
     private Color color;
     private boolean breakable = false;
     private CellDataProviderIntf cellData;
-    
+
     public Point getLocation() {
         return new Point(x, y);
     }
@@ -93,5 +92,5 @@ public class Barrier {
     public void setBreakable(boolean breakable) {
         this.breakable = breakable;
     }
-    
+
 }
